@@ -1,10 +1,10 @@
-<h1>This is a analogue Clock<h1>
-<br>
-<h2>Created using html,css,js</h2>
-<br>
+<h1>This is a analogue clock<h1>
+
+<h2>Created using HTML, CSS, JS </h2>
+
 <h2>Features:</h2>
 <ul>
-<li>Minimal,Asthetic Analogue Clock</li>
+<li>Minimal, asthetic analogue clock</li>
 <li>Show's current date and time</li>
-<li>Beautiful Background images chaning randomly</li>
+<li>Beautiful Background images changing randomly</li>
 </ul>
