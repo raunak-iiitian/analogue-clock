@@ -1,6 +1,6 @@
 let body = document.querySelector('body');
 
-let today = document.querySelector('#date');
+let today = document.querySelectorAll('.date');
 
 const img = [
     "url(img-1.jpg)", "url(img-2.jpg)", "url(img-3.jpg)", "url(img-4.jpg)", "url(img-5.jpg)"
@@ -12,36 +12,41 @@ body.style.backgroundImage = img[cng];
 },5000);
 
 
-let hourHand = document.querySelector('.hour');
-let minuteHand = document.querySelector('.min');
-let secondHand = document.querySelector('.sec');
+function updateClock(element) {
+  const timeZone = element.id;
 
-function updateClock() {
-  const now = new Date();
+  const now = new Date().toLocaleString("en-GB", {
+    timeZone,
+    hour12: false,
+  });
 
-  const date = now.getDate();
-  const month = now.getMonth();
-  const year = now.getFullYear();
-  
-  today.textContent = `Date: ${date}/${month}/${year}`;
+  const [datePart, timePart] = now.split(", ");
+  const [day, month, year] = datePart.split("/").map(Number);
+  const [hours, minutes, seconds] = timePart.split(":").map(Number);
 
-  let seconds = now.getSeconds();
-  let minutes = now.getMinutes();
-  let hours = now.getHours();
+  element.innerHTML = `<i>${timeZone}</i><br>Date: ${day}/${month}/${year}`;
 
-  
-  let secDeg = seconds * 6; 
-  let minDeg = minutes * 6 + seconds * 0.1; 
-  let hourDeg = (hours % 12) * 30 + minutes * 0.5; 
+  const container = element.parentElement; 
+  const hourHand = container.querySelector(".hour");
+  const minuteHand = container.querySelector(".min");
+  const secondHand = container.querySelector(".sec");
 
-  
+  const secDeg = seconds * 6;
+  const minDeg = minutes * 6 + seconds * 0.1;
+  const hourDeg = (hours % 12) * 30 + minutes * 0.5;
+
   hourHand.style.transform = `rotateZ(${hourDeg}deg)`;
   minuteHand.style.transform = `rotateZ(${minDeg}deg)`;
   secondHand.style.transform = `rotateZ(${secDeg}deg)`;
 }
 
-setInterval(updateClock, 1000);
-updateClock(); 
+
+
+today.forEach((element) => {
+  updateClock(element); 
+  setInterval(() => updateClock(element), 1000); 
+});
+ 
 
 
 
